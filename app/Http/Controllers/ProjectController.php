@@ -54,7 +54,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return Inertia::render('Project/Edit', [
+           
+        ]);
     }
 
     /**
@@ -70,6 +72,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        
     }
 }
