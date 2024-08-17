@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import Pagination from '@/Components/Pagination';
 
 const Index = ({ auth, projects }) => {
     const projectList = projects.data;
@@ -10,9 +11,9 @@ const Index = ({ auth, projects }) => {
         switch (status.toLowerCase()) {
             case 'completed':
                 return 'bg-green-100 text-green-800';
-            case 'in progress':
+            case 'in_progress':
                 return 'bg-blue-100 text-blue-800';
-            case 'on hold':
+            case 'pending':
                 return 'bg-yellow-100 text-yellow-800';
             case 'cancelled':
                 return 'bg-red-100 text-red-800';
@@ -97,12 +98,13 @@ const Index = ({ auth, projects }) => {
                                         ))}
                                     </tbody>
                                 </table>
+                                <Pagination className="mt-6" links={projects.meta.links} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </Authenticated>
+        </Authenticated >
     );
 };
 
