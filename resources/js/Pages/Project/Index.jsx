@@ -1,10 +1,16 @@
 import React from 'react';
+import { router } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import Pagination from '@/Components/Pagination';
+import TextInput from '@/Components/TextInput';
+import SelectInput from '@/Components/SelectInput';
+import { ChevronUpIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
-const Index = ({ auth, projects }) => {
+const Index = ({ auth, projects, queryParams = null }) => {
+    queryParams = queryParams || {}
     const projectList = projects.data;
 
     const getStatusColor = (status) => {
@@ -22,6 +28,37 @@ const Index = ({ auth, projects }) => {
         }
     };
 
+    // setvalue function filtered
+    const searchFieldChange = (name, value) => {
+        if (value) {
+            queryParams[name] = value
+        } else {
+            delete queryParams[name]
+        }
+        router.get(route('project.index'), queryParams)
+    }
+
+    // onKeyPress function filtered
+    const onKeyPress = (name, e) => {
+        if (e !== 'Enter')
+            return
+        searchFieldChange(name, e.target.value)
+    }
+
+    //sortChange
+    const sortChange = (name) => {
+        if (name === queryParams.sort_field) {
+            if (queryParams.sort_direction === 'asc') {
+                queryParams.sort_direction === 'desc'
+            } else {
+                queryParams.sort_direction = 'asc'
+            }
+        } else {
+            queryParams.sort_field = name
+            queryParams.sort_direction = 'asc'
+        }
+        router.get(route('project.index'), queryParams)
+    }
     return (
         <Authenticated
             user={auth.user}
@@ -36,29 +73,91 @@ const Index = ({ auth, projects }) => {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="bg-gray-50">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th onClick={(e) => sortChange('id')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
                                                 ID
+                                                <div>
+                                                    <ChevronUpIcon className="w-4" />
+                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                                </div>
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th onClick={sortChange} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Image
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th onClick={(e) => sortChange('name')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
                                                 Name
+                                                <div>
+                                                    <ChevronUpIcon className="w-4" />
+                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                                </div>
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th onClick={(e) => sortChange('status')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
                                                 Status
+                                                <div>
+                                                    <ChevronUpIcon className="w-4" />
+                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                                </div>
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th onClick={(e) => sortChange('created_at')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
                                                 Create Date
+                                                <div>
+                                                    <ChevronUpIcon className="w-4" />
+                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                                </div>
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th onClick={(e) => sortChange('due_date')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
                                                 Due Date
+                                                <div>
+                                                    <ChevronUpIcon className="w-4" />
+                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                                </div>
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Created By
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Actions
+                                            </th>
+                                        </tr>
+
+                                    </thead>
+                                    <thead className="bg-gray-50">
+                                        <tr className='text-wrap'>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                ID
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <TextInput defaultValue={queryParams.name} className="w-full" placeholder="Search Name" onBlur={e => searchFieldChange('name', e.target.value)} onKeyPress={e => onKeyPress('name', e.target.value)} />
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <SelectInput defaultValue={queryParams.status}
+                                                    className="w-auto min-w-[150px] text-center" // Added min-w-[150px] and w-auto
+                                                    placeholder="Select Status"
+                                                    onBlur={(e) => searchFieldChange('status', e.target.value)}
+                                                    onKeyPress={(e) => onKeyPress('status', e.target.value)}
+                                                >
+                                                    <option value="">All</option>
+                                                    <option value="completed">Completed</option>
+                                                    <option value="in_progress">In Progress</option>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="cancelled">Cancelled</option>
+                                                </SelectInput>
+                                            </th>
+
+
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
                                             </th>
                                         </tr>
                                     </thead>
