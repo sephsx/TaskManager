@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -61,7 +62,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return inertia("Project/Show", [
+           'project' => new ProjectResource($project),
+        ]);
     }
 
     /**
