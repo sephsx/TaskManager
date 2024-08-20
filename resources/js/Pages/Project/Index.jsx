@@ -6,9 +6,10 @@ import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
 import { ChevronUpIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import TableHeading from '@/Components/TableHeading';
 
 const Index = ({ auth, projects, queryParams = null }) => {
-    queryParams = queryParams || {}
+    queryParams = queryParams || {};
     const projectList = projects.data;
 
     const getStatusColor = (status) => {
@@ -26,41 +27,36 @@ const Index = ({ auth, projects, queryParams = null }) => {
         }
     };
 
-    // setvalue function filtered
     const searchFieldChange = (name, value) => {
         if (value) {
-            queryParams[name] = value
+            queryParams[name] = value;
         } else {
-            delete queryParams[name]
+            delete queryParams[name];
         }
-        router.get(route('project.index'), queryParams)
-    }
+        router.get(route('project.index'), queryParams);
+    };
 
-    // onKeyPress function filtered
     const onKeyPress = (name, e) => {
-        if (e !== 'Enter')
-            return
-        searchFieldChange(name, e.target.value)
-    }
+        if (e.key !== 'Enter') return;
+        searchFieldChange(name, e.target.value);
+    };
 
-    //sortChange
-    const sortChange = (name) => {
+    const sortChanged = (name) => {
         if (name === queryParams.sort_field) {
-            if (queryParams.sort_direction === 'asc') {
-                queryParams.sort_direction = 'desc'
-            } else {
-                queryParams.sort_direction = 'asc'
-            }
-        }else{
-            queryParams.sort_field = name
-            queryParams.sort_direction = 'asc'
+            queryParams.sort_direction = queryParams.sort_direction === 'asc' ? 'desc' : 'asc';
+        } else {
+            queryParams.sort_field = name;
+            queryParams.sort_direction = 'asc';
         }
-        router.get(route("project.index"), queryParams)
-    }
+        router.get(route('project.index'), queryParams);
+    };
+
     return (
         <Authenticated
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Projects</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Projects</h2>
+
+            }
         >
             <Head title="Projects" />
             <div className="py-12">
@@ -71,56 +67,49 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="bg-gray-50">
                                         <tr>
-                                            <th onClick={(e) => sortChange('id')}>
-                                                <div className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer'>
-                                                    ID
-                                                    <div>
-                                                        <ChevronUpIcon
-                                                            className={`w-4${queryParams.sort_field === 'id' && queryParams.sort_direction === 'asc' ? ' text-red-600' : ''}`}
-                                                        />
-                                                        <ChevronDownIcon
-                                                        className={`w-4 -mt-2${queryParams.sort_field === 'id' && queryParams.sort_direction === 'desc' ? ' text-red-600' : ''}`}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <th onClick={sortChange} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <TableHeading
+                                                name="id"
+                                                sort_field={queryParams.sort_field}
+                                                sort_direction={queryParams.sort_direction}
+                                                sortChanged={sortChanged}
+                                            >
+                                                ID
+                                            </TableHeading>
+                                            <th onClick={sortChanged} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Image
                                             </th>
-                                            <th onClick={(e) => sortChange('name')}>
-                                                <div className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer'>
-                                                    Name
-                                                    <div>
-                                                        <ChevronUpIcon className="w-4" />
-                                                        <ChevronDownIcon className="w-4 -mt-2" />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <th onClick={(e) => sortChange('status')} >
-                                                <div className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer">
-                                                    Status
-                                                    <div>
-                                                        <ChevronUpIcon className="w-4" />
-                                                        <ChevronDownIcon className="w-4 -mt-2" />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <th onClick={(e) => sortChange('created_at')} >
-                                                <div className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer">
-                                                    Create Date
-                                                    <div>
-                                                        <ChevronUpIcon className="w-4" />
-                                                        <ChevronDownIcon className="w-4 -mt-2" />
-                                                    </div>
-                                                </div>
-                                            </th>
-                                            <th onClick={(e) => sortChange('due_date')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer">
+                                            <TableHeading
+                                                name="id"
+                                                sort_field={queryParams.sort_field}
+                                                sort_direction={queryParams.sort_direction}
+                                                sortChanged={sortChanged}
+                                            >
+                                                Name
+                                            </TableHeading>
+                                            <TableHeading
+                                                name="id"
+                                                sort_field={queryParams.sort_field}
+                                                sort_direction={queryParams.sort_direction}
+                                                sortChanged={sortChanged}
+                                            >
+                                                Status
+                                            </TableHeading>
+                                            <TableHeading
+                                                name="id"
+                                                sort_field={queryParams.sort_field}
+                                                sort_direction={queryParams.sort_direction}
+                                                sortChanged={sortChanged}
+                                            >
+                                                Create Date
+                                            </TableHeading>
+                                            <TableHeading
+                                                name="id"
+                                                sort_field={queryParams.sort_field}
+                                                sort_direction={queryParams.sort_direction}
+                                                sortChanged={sortChanged}
+                                            >
                                                 Due Date
-                                                <div>
-                                                    <ChevronUpIcon className="w-4" />
-                                                    <ChevronDownIcon className="w-4 -mt-2" />
-                                                </div>
-                                            </th>
+                                            </TableHeading>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Created By
                                             </th>
@@ -180,8 +169,10 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <img src={project.image_path} alt={project.name} className="w-10 h-10 rounded-full" />
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                    {project.name}
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hover:underline">
+                                                    <Link href={route("project.show", project.id)}>
+                                                        {project.name}
+                                                    </Link>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(project.status)}`}>
