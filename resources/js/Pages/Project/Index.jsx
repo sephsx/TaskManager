@@ -1,8 +1,6 @@
 import React from 'react';
-import { router } from '@inertiajs/react';
-import { Link } from '@inertiajs/react';
+import { router, Link, Head } from '@inertiajs/react';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
 import Pagination from '@/Components/Pagination';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
@@ -49,15 +47,15 @@ const Index = ({ auth, projects, queryParams = null }) => {
     const sortChange = (name) => {
         if (name === queryParams.sort_field) {
             if (queryParams.sort_direction === 'asc') {
-                queryParams.sort_direction === 'desc'
+                queryParams.sort_direction = 'desc'
             } else {
                 queryParams.sort_direction = 'asc'
             }
-        } else {
+        }else{
             queryParams.sort_field = name
             queryParams.sort_direction = 'asc'
         }
-        router.get(route('project.index'), queryParams)
+        router.get(route("project.index"), queryParams)
     }
     return (
         <Authenticated
@@ -73,38 +71,50 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="bg-gray-50">
                                         <tr>
-                                            <th onClick={(e) => sortChange('id')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
-                                                ID
-                                                <div>
-                                                    <ChevronUpIcon className="w-4" />
-                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                            <th onClick={(e) => sortChange('id')}>
+                                                <div className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer'>
+                                                    ID
+                                                    <div>
+                                                        <ChevronUpIcon
+                                                            className={`w-4${queryParams.sort_field === 'id' && queryParams.sort_direction === 'asc' ? ' text-red-600' : ''}`}
+                                                        />
+                                                        <ChevronDownIcon
+                                                        className={`w-4 -mt-2${queryParams.sort_field === 'id' && queryParams.sort_direction === 'desc' ? ' text-red-600' : ''}`}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </th>
                                             <th onClick={sortChange} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Image
                                             </th>
-                                            <th onClick={(e) => sortChange('name')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
-                                                Name
-                                                <div>
-                                                    <ChevronUpIcon className="w-4" />
-                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                            <th onClick={(e) => sortChange('name')}>
+                                                <div className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer'>
+                                                    Name
+                                                    <div>
+                                                        <ChevronUpIcon className="w-4" />
+                                                        <ChevronDownIcon className="w-4 -mt-2" />
+                                                    </div>
                                                 </div>
                                             </th>
-                                            <th onClick={(e) => sortChange('status')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
-                                                Status
-                                                <div>
-                                                    <ChevronUpIcon className="w-4" />
-                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                            <th onClick={(e) => sortChange('status')} >
+                                                <div className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer">
+                                                    Status
+                                                    <div>
+                                                        <ChevronUpIcon className="w-4" />
+                                                        <ChevronDownIcon className="w-4 -mt-2" />
+                                                    </div>
                                                 </div>
                                             </th>
-                                            <th onClick={(e) => sortChange('created_at')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
-                                                Create Date
-                                                <div>
-                                                    <ChevronUpIcon className="w-4" />
-                                                    <ChevronDownIcon className="w-4 -mt-2" />
+                                            <th onClick={(e) => sortChange('created_at')} >
+                                                <div className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer">
+                                                    Create Date
+                                                    <div>
+                                                        <ChevronUpIcon className="w-4" />
+                                                        <ChevronDownIcon className="w-4 -mt-2" />
+                                                    </div>
                                                 </div>
                                             </th>
-                                            <th onClick={(e) => sortChange('due_date')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1">
+                                            <th onClick={(e) => sortChange('due_date')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center justify-between gap-1 cursor-pointer">
                                                 Due Date
                                                 <div>
                                                     <ChevronUpIcon className="w-4" />
