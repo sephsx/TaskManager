@@ -1,8 +1,8 @@
 import React from 'react';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-
-const Show = ({ project, auth }) => {
+import TaskTable from '../Task/TaskTable';
+const Show = ({ project, auth, tasks, queryParams }) => {
     // Function to determine the status style with background and border
     const getStatusStyle = (status) => {
         switch (status.toLowerCase()) {
@@ -22,7 +22,7 @@ const Show = ({ project, auth }) => {
     return (
         <Authenticated user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-200 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-700 leading-tight">
                     {`Project "${project.name}"`}
                 </h2>
             }>
@@ -127,7 +127,7 @@ const Show = ({ project, auth }) => {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
-                           Table here
+                            <TaskTable tasks={tasks} queryParams={queryParams} />
                         </div>
                     </div>
                 </div>
