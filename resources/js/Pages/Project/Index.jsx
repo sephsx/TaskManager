@@ -4,8 +4,6 @@ import Authenticated from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
-import { ChevronUpIcon } from '@heroicons/react/24/solid'
-import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import TableHeading from '@/Components/TableHeading';
 
 const Index = ({ auth, projects, queryParams = null }) => {
@@ -68,7 +66,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                     <thead className="bg-gray-50">
                                         <tr>
                                             <TableHeading
-                                                name="id"  
+                                                name="id"
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -79,7 +77,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Image
                                             </th>
                                             <TableHeading
-                                                name="name"  
+                                                name="name"
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -87,7 +85,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Name
                                             </TableHeading>
                                             <TableHeading
-                                                name="status"  
+                                                name="status"
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -95,7 +93,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Status
                                             </TableHeading>
                                             <TableHeading
-                                                name="created_at"  
+                                                name="created_at"
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -103,7 +101,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Create Date
                                             </TableHeading>
                                             <TableHeading
-                                                name="due_date"  
+                                                name="due_date"
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
