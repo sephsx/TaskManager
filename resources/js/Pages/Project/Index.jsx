@@ -68,18 +68,18 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                     <thead className="bg-gray-50">
                                         <tr>
                                             <TableHeading
-                                                name="id"
+                                                name="id"  
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
                                             >
                                                 ID
                                             </TableHeading>
-                                            <th onClick={sortChanged} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Image
                                             </th>
                                             <TableHeading
-                                                name="id"
+                                                name="name"  
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -87,7 +87,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Name
                                             </TableHeading>
                                             <TableHeading
-                                                name="id"
+                                                name="status"  
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -95,7 +95,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Status
                                             </TableHeading>
                                             <TableHeading
-                                                name="id"
+                                                name="created_at"  
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -103,7 +103,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Create Date
                                             </TableHeading>
                                             <TableHeading
-                                                name="id"
+                                                name="due_date"  
                                                 sort_field={queryParams.sort_field}
                                                 sort_direction={queryParams.sort_direction}
                                                 sortChanged={sortChanged}
@@ -117,6 +117,7 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                 Actions
                                             </th>
                                         </tr>
+
 
                                     </thead>
                                     <thead className="bg-gray-50">
